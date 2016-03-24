@@ -1,0 +1,32 @@
+<md-dialog ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Resultado: </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="vm.closeQrResult()">
+          <md-icon> close </md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h2>{{vm.qrResult.format}}</h2>
+        <p>
+          {{vm.qrResult.code}}
+        </p>
+        <img style="margin: auto; max-width: 100%;" alt="Lush mango tree"
+        ng-src="{{vm.qrResult.imgData}}">
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button target="_blank" md-autofocus>
+        Copiar
+      </md-button>
+      <span flex></span>
+      <md-button >
+        Abrir en navegador
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
