@@ -2,31 +2,56 @@
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Resultado: </h2>
+        <h2>{{vm.scannerResult.format}}</h2>
         <span flex></span>
-        <md-button class="md-icon-button" ng-click="vm.closeQrResult()">
+        <md-button class="md-icon-button" ng-click="vm.scannerResultModalClose()">
           <md-icon> close </md-icon>
         </md-button>
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-        <h2>{{vm.qrResult.format}}</h2>
         <p>
-          {{vm.qrResult.code}}
+          {{vm.scannerResult.code}}
         </p>
         <img style="margin: auto; max-width: 100%;" alt="Lush mango tree"
-        ng-src="{{vm.qrResult.imgData}}">
+        ng-src="{{vm.scannerResult.imgData}}">
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button target="_blank" md-autofocus>
-        Copiar
+      <md-button class="md-fab md-primary" >
+        <md-icon> launch </md-icon>
+        <md-tooltip md-direction="bottom">
+          Abrir en el navegador
+        </md-tooltip>
       </md-button>
       <span flex></span>
-      <md-button >
-        Abrir en navegador
+      <md-button class="md-fab md-primary" aria-label="{{vm.scannerResult.code}}"
+        ngclipboard data-clipboard-text="{{vm.scannerResult.code}}">
+        <md-icon> content_copy </md-icon>
+        <md-tooltip md-direction="bottom">
+          Copiar al portapapeles
+        </md-tooltip>
       </md-button>
+      <span flex></span>
+      <md-menu>
+        <md-button aria-label="share" class="md-fab md-primary"
+        ng-click="vm.openShareMenu($mdOpenMenu, $event)">
+          <md-tooltip md-direction="bottom" >Compartir</md-tooltip>
+          <md-icon md-menu-origin aria-label="compartir">share</md-icon>
+        </md-button>
+        <md-menu-content>
+          <md-menu-item ng-repeat="provider in vm.providers">
+            <md-button socialshare socialshare-provider="{{provider.name}}"
+            socialshare-text="{{vm.scannerResult.code}}"
+            socialshare-url="http://ripper2hl.github.io/qrlite/" aria-label="{{provider.name}}" >
+              <md-icon md-menu-align-target md-svg-icon="{{provider.name}}"></md-icon>
+              {{provider.name}}
+            </md-button>
+          </md-menu-item>
+
+        </md-menu-content>
+      </md-menu>
     </md-dialog-actions>
   </form>
 </md-dialog>

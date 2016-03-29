@@ -3,10 +3,10 @@
 
   angular
     .module('qrlite')
-    .controller('MainController', ['$scope', '$mdDialog','$mdToast', MainController]);
+    .controller('MainController', ['$scope', '$mdDialog','$mdToast','sharingProvider', MainController]);
 
   /** @ngInject */
-  function MainController( $scope, $mdDialog, $mdToast ) {
+  function MainController( $scope, $mdDialog, $mdToast, sharingProvider ) {
     var vm = this;
 
     $scope.$on('scannerSuccess', scannerSuccess);
@@ -19,7 +19,8 @@
         templateUrl: 'app/components/qrShowPanel/qrShowPanel.html',
         parent: angular.element(document.body),
         locals : {
-          qrResult : data
+          scannerResult : data,
+          sharingProvider: sharingProvider
         }
       }).finally(function() {
           alert = undefined;
@@ -27,14 +28,21 @@
     }
   }
 
-  function QrResultDialogController($scope, $mdDialog, qrResult){
+  function QrResultDialogController($scope, $mdDialog, scannerResult, sharingProvider){
     var vm = this;
 
-    vm.qrResult = qrResult;
-    vm.closeQrResult = closeQrResult;
+    vm.scannerResult = scannerResult;
+    vm.scannerResultModalClose = scannerResultModalClose;
+    vm.openShareMenu = openShareMenu;
 
-    function closeQrResult(){
+    vm.providers = sharingProvider.getProviders();
+
+    function scannerResultModalClose(){
       $mdDialog.hide();
+    }
+
+    function openShareMenu($mdOpenMenu, $event){
+      $mdOpenMenu($event);
     }
   }
 })();

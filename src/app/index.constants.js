@@ -4,7 +4,6 @@
 
   angular
     .module('qrlite')
-    .constant('malarkey', malarkey)
     .constant('moment', moment);
 
 })();
