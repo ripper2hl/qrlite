@@ -19,7 +19,7 @@
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
-      <md-button class="md-fab md-primary" >
+      <md-button href="{{vm.scannerResult.code}}" ng-disabled="{{!vm.isUrl}}" class="md-fab md-primary" >
         <md-icon> launch </md-icon>
         <md-tooltip md-direction="bottom">
           Abrir en el navegador
@@ -34,7 +34,7 @@
         </md-tooltip>
       </md-button>
       <span flex></span>
-      <md-menu>
+      <md-menu class="md-menu-button">
         <md-button aria-label="share" class="md-fab md-primary"
         ng-click="vm.openShareMenu($mdOpenMenu, $event)">
           <md-tooltip md-direction="bottom" >Compartir</md-tooltip>
@@ -44,7 +44,7 @@
           <md-menu-item ng-repeat="provider in vm.providers">
             <md-button socialshare socialshare-provider="{{provider.name}}"
             socialshare-text="{{vm.scannerResult.code}}"
-            socialshare-url="http://ripper2hl.github.io/qrlite/" aria-label="{{provider.name}}" >
+            socialshare-url="{{vm.isUrl ? vm.scannerResult.code : 'http://ripper2hl.github.io/qrlite/' }}" aria-label="{{provider.name}}" >
               <md-icon md-menu-align-target md-svg-icon="{{provider.name}}"></md-icon>
               {{provider.name}}
             </md-button>

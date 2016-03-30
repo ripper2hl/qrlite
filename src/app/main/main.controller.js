@@ -30,10 +30,10 @@
 
   function QrResultDialogController($scope, $mdDialog, scannerResult, sharingProvider){
     var vm = this;
-
     vm.scannerResult = scannerResult;
     vm.scannerResultModalClose = scannerResultModalClose;
     vm.openShareMenu = openShareMenu;
+    vm.isUrl = validUrl(scannerResult.code);
 
     vm.providers = sharingProvider.getProviders();
 
@@ -43,6 +43,16 @@
 
     function openShareMenu($mdOpenMenu, $event){
       $mdOpenMenu($event);
+    }
+
+    function validUrl(value){
+      var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+      var regex = new RegExp(expression);
+      if(value.match(regex)){
+        return true;
+      }else{
+        return false;
+      }
     }
   }
 })();
