@@ -105,9 +105,8 @@
         function qrSuccess(result){
        	console.debug('qrSuccess -->');
          document.cancelFullScreen();
-         qrService.getQr().stop();
+
          scope.$emit('scannerSuccess', result);
-         console.log(result);
        	console.debug('qrSuccess //>');
        }
 

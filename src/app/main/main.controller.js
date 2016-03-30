@@ -12,19 +12,22 @@
     $scope.$on('scannerSuccess', scannerSuccess);
 
     function scannerSuccess(event, data){
-      $mdDialog.show({
-        bindToController: true,
-        controller: QrResultDialogController,
-        controllerAs: 'vm',
-        templateUrl: 'app/components/qrShowPanel/qrShowPanel.html',
-        parent: angular.element(document.body),
-        locals : {
-          scannerResult : data,
-          sharingProvider: sharingProvider
-        }
-      }).finally(function() {
-          alert = undefined;
-      });
+      //workaround https://github.com/angular/material/issues/5071
+      if(angular.element(document).find('md-dialog').length === 0) {
+        $mdDialog.show({
+          bindToController: true,
+          controller: QrResultDialogController,
+          controllerAs: 'vm',
+          templateUrl: 'app/components/qrShowPanel/qrShowPanel.html',
+          parent: angular.element(document.body),
+          locals : {
+            scannerResult : data,
+            sharingProvider: sharingProvider
+          }
+        }).finally(function() {
+            alert = undefined;
+        });
+      }
     }
   }
 
