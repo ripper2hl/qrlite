@@ -3,17 +3,22 @@
 
   angular
     .module('qrlite')
-    .controller('MainController', ['$scope', '$mdDialog','$mdToast','sharingProvider', MainController]);
+    .controller('MainController', ['$scope', '$mdDialog','$mdToast',
+    'ngAudio', 'sharingProvider','qrService', MainController]);
 
   /** @ngInject */
-  function MainController( $scope, $mdDialog, $mdToast, sharingProvider ) {
+  function MainController( $scope, $mdDialog, $mdToast, ngAudio, sharingProvider, qrService) {
     var vm = this;
+
+    vm.sound = ngAudio.load('assets/webcodecamjs/audio/beep.mp3');
 
     $scope.$on('scannerSuccess', scannerSuccess);
 
     function scannerSuccess(event, data){
       //workaround https://github.com/angular/material/issues/5071
       if(angular.element(document).find('md-dialog').length === 0) {
+        qrService.getQr().pause();
+        vm.sound.play();
         $mdDialog.show({
           bindToController: true,
           controller: QrResultDialogController,
@@ -22,7 +27,8 @@
           parent: angular.element(document.body),
           locals : {
             scannerResult : data,
-            sharingProvider: sharingProvider
+            sharingProvider: sharingProvider,
+            qrService : qrService
           }
         }).finally(function() {
             alert = undefined;
@@ -31,7 +37,8 @@
     }
   }
 
-  function QrResultDialogController($scope, $mdDialog, scannerResult, sharingProvider){
+  function QrResultDialogController($scope, $mdDialog, scannerResult,
+    sharingProvider, qrService){
     var vm = this;
     vm.scannerResult = scannerResult;
     vm.scannerResultModalClose = scannerResultModalClose;
@@ -42,6 +49,7 @@
 
     function scannerResultModalClose(){
       $mdDialog.hide();
+      qrService.getQr().play();
     }
 
     function openShareMenu($mdOpenMenu, $event){

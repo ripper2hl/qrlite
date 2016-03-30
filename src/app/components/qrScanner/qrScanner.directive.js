@@ -54,7 +54,7 @@
                        video: {
                            mandatory: {
                                maxWidth: 1280,
-                               maxHeight: 720
+                               maxHeight: 1280
                            },
                            optional: [{
                                sourceId: true
@@ -65,8 +65,7 @@
                    flipVertical: false,
                    flipHorizontal: false,
                    zoom: -1,
-                   beep: 'assets/plugins/webcodecamjs/audio/beep.mp3',
-                   decoderWorker: 'assets/plugins/webcodecamjs/js/DecoderWorker.js',
+                   decoderWorker: 'assets/webcodecamjs/js/DecoderWorker.js',
                    brightness: 0,
                    autoBrightnessValue: false,
                    grayScale: false,
@@ -103,12 +102,9 @@
         * @author Jesus Perales.
         */
         function qrSuccess(result){
-       	console.debug('qrSuccess -->');
          document.cancelFullScreen();
-
          scope.$emit('scannerSuccess', result);
-       	console.debug('qrSuccess //>');
-       }
+        }
 
     }
   }

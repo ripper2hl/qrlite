@@ -14,8 +14,10 @@
         <p>
           {{vm.scannerResult.code}}
         </p>
-        <img style="margin: auto; max-width: 100%;" alt="Lush mango tree"
-        ng-src="{{vm.scannerResult.imgData}}">
+        <a download="image.png" ng-href="{{vm.scannerResult.imgData}}">
+          <img style="margin: auto; max-width: 100%;" alt="{{vm.scannerResult.code}}"
+          ng-src="{{vm.scannerResult.imgData}}">
+        </a>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">

@@ -6,11 +6,15 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, $mdIconProvider) {
+  function config($compileProvider, $logProvider, $mdIconProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
 
-    $mdIconProvider.defaultIconSet('assets/mdi.svg')    
+    //Set icons
+    $mdIconProvider.defaultIconSet('assets/mdi.svg')
+
+    //sanitize href
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|data):/);
 
     document.cancelFullScreen =
     document.mozCancelFullScreen || document.webkitExitFullscreen;
