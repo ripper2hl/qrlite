@@ -14,10 +14,18 @@
         <p>
           {{vm.scannerResult.code}}
         </p>
-        <a download="image.png" ng-href="{{vm.scannerResult.imgData}}">
+        <div class="image-caption-container">
           <img style="margin: auto; max-width: 100%;" alt="{{vm.scannerResult.code}}"
           ng-src="{{vm.scannerResult.imgData}}">
-        </a>
+          <a class="image-caption" ng-href="{{vm.scannerResult.imgData}}" download="image.png">
+            <div class="image-caption-text"  layout="row" layout-align="center center">
+              <md-icon class="image-caption-download-icon">file_download</md-icon>
+            </div>
+          </a>
+          <md-tooltip >
+            Guardar imagen
+          </md-tooltip>
+        </div>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">

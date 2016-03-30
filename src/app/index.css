@@ -40,3 +40,28 @@
 .md-menu-button{
   padding: 0;
 }
+
+.image-caption-container{
+  height: 100%;
+  position: relative;
+}
+
+.image-caption{
+  display: block;
+  position: absolute;
+  opacity: 0.3;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  top: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.image-caption-text{
+  height: 100%;
+}
+
+.image-caption-download-icon{
+  font-size: 10em;
+  color: rgb(204, 204, 204);
+}
